@@ -1,8 +1,7 @@
 
 import { useState, useEffect } from 'react';
 
-
-import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Code, Database, Palette, Menu} from 'lucide-react';
+import { Mail, Phone, MapPin, ExternalLink, Code, Database, Palette, Menu, X } from 'lucide-react';
 import './App.css';
 
 function App() {
@@ -220,7 +219,7 @@ function App() {
           <div className="hero-image">
             <div className="avatar">
               <img 
-                src="/src/assets/Profile.png"
+                src=" /Nishikanta_Profile/src/assets/Profile.png"
                 alt="Nishikanta Jena - Full Stack Developer" 
                 className="avatar-img"
                 loading="lazy"
