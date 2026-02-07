@@ -219,7 +219,7 @@ function App() {
           <div className="hero-image">
             <div className="avatar">
               <img 
-                src="src/assets/Profile.png"
+                src="./src/assets/Profile.png"
                 alt="Nishikanta Jena - Full Stack Developer" 
                 className="avatar-img"
                 loading="lazy"
