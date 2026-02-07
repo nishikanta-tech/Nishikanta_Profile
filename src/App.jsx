@@ -1,5 +1,7 @@
 
 import { useState, useEffect } from 'react';
+import { Mail } from "lucide-react";
+
 import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Code, Database, Palette, Menu, X } from 'lucide-react';
 import './App.css';
 
