@@ -87,7 +87,7 @@ function App() {
       {/* Navigation */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
-          <div className="logo">_Nishikanta</div>
+          <div className="logo">_NK_</div>
           
           {/* Desktop Menu */}
           <div className="nav-desktop">
