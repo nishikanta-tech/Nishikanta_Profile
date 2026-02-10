@@ -694,7 +694,7 @@ function App() {
           <div className="hero-image">
             <div className="avatar">
               <img 
-                src="https://i.pinimg.com/736x/ec/a1/56/eca15621f77387b8508670a90e30adb7.jpg"
+                src="https://i.pinimg.com/736x/29/40/3d/29403d457261a7f5d7a0c6f12b857189.jpg"
                 alt="Nishikanta Jena - Full Stack Developer" 
                 className="avatar-img"
                 loading="lazy"
