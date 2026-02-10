@@ -665,7 +665,7 @@ function App() {
             </div>
             <div className="social-links">
               <a 
-                href="https://github.com/nishikanta" 
+                href="https://github.com/nishikanta-tech" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="social-link"
