@@ -425,7 +425,7 @@ function App() {
       title: "Online Marketplace",
       description: "Full-featured online store with shopping cart and payment integration",
       tech: ["React", "Node.js", "MongoDB"],
-      liveLink: "#",
+      liveLink: "https://online-marketplace-project.netlify.app",
       githubLink: "#"
     },
     {
