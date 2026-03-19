@@ -426,7 +426,7 @@ function App() {
       description: "Full-featured online store with shopping cart and payment integration",
       tech: ["React", "Node.js", "MongoDB"],
       liveLink: "https://online-marketplace-project.netlify.app",
-      githubLink: "#"
+      githubLink: "https://github.com/nishikanta-tech/Online-MarketPlace"
     },
     {
       id: 2,
