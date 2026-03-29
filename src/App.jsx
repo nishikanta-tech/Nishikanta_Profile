@@ -1,4 +1,3 @@
-
 // App.jsx
 import { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Code, Database, Palette, Menu, X, Download, FileText, Briefcase, Award, Calendar } from 'lucide-react';
@@ -19,7 +18,7 @@ function App() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingIndex, setTypingIndex] = useState(0);
   
-  const roles = ['MERN Stack Developer', 'React Devloper', 'Full Stack Devloper', 'Node Js Devloper '];
+  const roles = ['MERN Stack Developer', 'React Devloper', 'Full Stack Devloper', 'Node Js Devloper'];
 
   useEffect(() => {
     localStorage.setItem('theme', darkMode ? 'dark' : 'light');
@@ -178,36 +177,12 @@ function App() {
 
   return (
     <div className={`app ${darkMode ? 'dark' : 'light'}`}>
-      {/* Modern Navigation */}
+      {/* Minimal Navbar - Only Menu Icon */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <div className="logo">Portfolio</div>
           
-          {/* Desktop Menu */}
-          <div className="nav-desktop">
-            {navItems.map(item => (
-              <a 
-                key={item.name} 
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(item.href);
-                }}
-                className="nav-link"
-              >
-                {item.name}
-              </a>
-            ))}
-            <button 
-              className="theme-btn"
-              onClick={() => setDarkMode(!darkMode)}
-              aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {darkMode ? 'Light' : 'Dark'}
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button (visible on all screens) */}
           <div className="nav-mobile">
             <button 
               className="theme-btn"
@@ -226,10 +201,10 @@ function App() {
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
+        {/* Full Screen Mobile Menu Overlay */}
         {menuOpen && (
           <div className="mobile-menu">
-            {navItems.map(item => (
+            {navItems.map((item, index) => (
               <a 
                 key={item.name} 
                 href={item.href}
@@ -238,6 +213,7 @@ function App() {
                   handleNavClick(item.href);
                 }}
                 className="mobile-nav-link"
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
                 {item.name}
               </a>
@@ -407,283 +383,4 @@ function App() {
 
       {/* Skills Section */}
       <section id="skills" className="section">
-        <h2 className="section-title">Skills</h2>
-        <div className="skills-container">
-          {skills.map(skill => (
-            <div key={skill} className="skill-item">
-              {skill}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Resume Section */}
-      <section id="resume" className="section dark-section">
-        <div className="resume-header">
-          <h2 className="section-title">My Resume</h2>
-          <button 
-            className="btn-primary download-btn"
-            onClick={handleResumeDownload}
-          >
-            <Download size={20} />
-            Download Resume
-          </button>
-        </div>
-        
-        <div className="resume-container">
-          {/* Left Column */}
-          <div className="resume-left">
-            {/* Experience */}
-            <div className="resume-section">
-              <div className="section-header">
-                <Briefcase className="section-icon" size={28} />
-                <h3>Experience</h3>
-              </div>
-              <div className="timeline">
-                {experiences.map(exp => (
-                  <div key={exp.id} className="timeline-item">
-                    <div className="timeline-marker">
-                      <div className="timeline-dot"></div>
-                      <div className="timeline-line"></div>
-                    </div>
-                    <div className="timeline-content">
-                      <h4>{exp.title}</h4>
-                      <div className="timeline-meta">
-                        <span className="company">{exp.company}</span>
-                        <span className="period">{exp.period}</span>
-                      </div>
-                      <p className="timeline-description">{exp.description}</p>
-                      <ul className="achievements-list">
-                        {exp.achievements.map((achievement, idx) => (
-                          <li key={idx} className="achievement-item">
-                            <span className="achievement-dot"></span>
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Education */}
-            <div className="resume-section">
-              <div className="section-header">
-                <FileText className="section-icon" size={28} />
-                <h3>Education</h3>
-              </div>
-              <div className="education-grid">
-                {education.map(edu => (
-                  <div key={edu.id} className="education-card">
-                    <div className="education-icon">
-                      <FileText size={24} />
-                    </div>
-                    <div className="education-content">
-                      <h4>{edu.degree}</h4>
-                      <p className="institution">{edu.institution}</p>
-                      <div className="education-meta">
-                        <span className="period">
-                          <Calendar size={16} />
-                          {edu.period}
-                        </span>
-                        <span className="grade">
-                          <Award size={16} />
-                          {edu.grade}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div className="resume-right">
-            {/* Skills Summary */}
-            <div className="resume-section">
-              <div className="section-header">
-                <Code className="section-icon" size={28} />
-                <h3>Technical Skills</h3>
-              </div>
-              <div className="skills-summary">
-                <div className="skill-category">
-                  <h4>Frontend</h4>
-                  <div className="skill-tags">
-                    {["React", "JavaScript", "HTML5", "CSS3", "Tailwind", "Bootstrap"].map(skill => (
-                      <span key={skill} className="skill-tag advanced">{skill}</span>
-                    ))}
-                  </div>
-                </div>
-                <div className="skill-category">
-                  <h4>Backend</h4>
-                  <div className="skill-tags">
-                    {["Node.js", "Express", "MongoDB", "REST APIs", "Firebase"].map(skill => (
-                      <span key={skill} className="skill-tag intermediate">{skill}</span>
-                    ))}
-                  </div>
-                </div>
-                <div className="skill-category">
-                  <h4>Tools</h4>
-                  <div className="skill-tags">
-                    {["Git", "VS Code", "Figma", "Postman", "Heroku"].map(skill => (
-                      <span key={skill} className="skill-tag beginner">{skill}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Certifications */}
-            <div className="resume-section">
-              <div className="section-header">
-                <Award className="section-icon" size={28} />
-                <h3>Certifications</h3>
-              </div>
-              <div className="certifications-list">
-                {certifications.map(cert => (
-                  <div key={cert.id} className="certification-card">
-                    <div className="certification-icon">
-                      <Award size={20} />
-                    </div>
-                    <div className="certification-content">
-                      <h4>{cert.name}</h4>
-                      <p className="certification-meta">
-                        <span className="issuer">{cert.issuer}</span>
-                        <span className="date">{cert.date}</span>
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Languages */}
-            <div className="resume-section">
-              <div className="section-header">
-                <FileText className="section-icon" size={28} />
-                <h3>Languages</h3>
-              </div>
-              <div className="languages-list">
-                {[
-                  { language: "English", level: "Fluent", proficiency: 90 },
-                  { language: "Hindi", level: "Intermediate", proficiency: 70 },
-                  { language: "Odia", level: "Native", proficiency: 100 }
-                ].map((lang, idx) => (
-                  <div key={idx} className="language-item">
-                    <div className="language-info">
-                      <span className="language-name">{lang.language}</span>
-                      <span className="language-level">{lang.level}</span>
-                    </div>
-                    <div className="language-progress">
-                      <div 
-                        className="progress-bar"
-                        style={{ width: `${lang.proficiency}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Stats Section */}
-        <div className="stats-section">
-          <div className="stats-grid">
-            <div className="stat-card">
-              <div className="stat-number">2+</div>
-              <div className="stat-label">Years Experience</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">15+</div>
-              <div className="stat-label">Projects Completed</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">10+</div>
-              <div className="stat-label">Happy Clients</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-number">5+</div>
-              <div className="stat-label">Certifications</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="section dark-section">
-        <h2 className="section-title">Get In Touch</h2>
-        <div className="contact-container">
-          <div className="contact-info">
-            <div className="contact-item">
-              <Mail className="contact-icon" />
-              <div>
-                <h4>Email</h4>
-                <p>nishikanta394@gmail.com</p>
-              </div>
-            </div>
-            <div className="contact-item">
-              <Phone className="contact-icon" />
-              <div>
-                <h4>Phone</h4>
-                <p>+91 9668477412</p>
-              </div>
-            </div>
-            <div className="contact-item">
-              <MapPin className="contact-icon" />
-              <div>
-                <h4>Location</h4>
-                <p>Bhubaneswar, Odisha</p>
-              </div>
-            </div>
-          </div>
-          
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input 
-                type="text" 
-                id="name" 
-                placeholder="Your name" 
-                required 
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                placeholder="Your email" 
-                required 
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="message">Message</label>
-              <textarea 
-                id="message" 
-                rows="4" 
-                placeholder="Your message"
-                required
-              ></textarea>
-            </div>
-            <button type="submit" className="btn-primary">Send Message</button>
-          </form>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <p>© {new Date().getFullYear()} Nishikanta. All rights reserved.</p>
-        <p className="footer-sub">Built with React & Vite</p>
-      </footer>
-    </div>
-  );
-}
-
-export default App;
-
-
-
-
+        <h2 className="section-title">Skills</
