@@ -1,7 +1,6 @@
 
 // import { useState, useEffect } from 'react';
-
-// import { Github,Linkedin, Mail, Phone, MapPin, ExternalLink, Code, Database, Palette, Menu, X } from 'lucide-react';
+// import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Code, Database, Palette, Menu, X, Download, FileText, Briefcase, Award, Calendar } from 'lucide-react';
 // import './App.css';
 
 // function App() {
@@ -34,8 +33,8 @@
 //       title: "Online Marketplace",
 //       description: "Full-featured online store with shopping cart and payment integration",
 //       tech: ["React", "Node.js", "MongoDB"],
-//       liveLink: "#",
-//       githubLink: "#"
+//       liveLink: "https://online-marketplace-project.netlify.app",
+//       githubLink: "https://github.com/nishikanta-tech/Online-MarketPlace"
 //     },
 //     {
 //       id: 2,
@@ -64,7 +63,73 @@
 //     { name: "About", href: "#about" },
 //     { name: "Projects", href: "#projects" },
 //     { name: "Skills", href: "#skills" },
+//     { name: "Resume", href: "#resume" },
 //     { name: "Contact", href: "#contact" },
+//   ];
+
+//   const experiences = [
+//     {
+//       id: 1,
+//       title: "Mern Stack Trainee",
+//       company: "Seere Private Limited",
+//       period: "feb 2025 - Sep 2025",
+//       description: "Developed and maintained web applications using React and Node.js.",
+//       achievements: [
+//         "Increased application performance by 40%",
+//         "Implemented responsive designs for mobile users",
+//         "Reduced API response time by 30%"
+//       ]
+//     },
+//     // {
+//     //   id: 2,
+//     //   title: "Frontend Developer",
+//     //   company: "Digital Innovations",
+//     //   period: "Jan 2022 - May 2023",
+//     //   description: "Built user interfaces for various client projects using modern JavaScript frameworks.",
+//     //   achievements: [
+//     //     "Led a team of 3 developers",
+//     //     "Improved user satisfaction by 25%",
+//     //     "Reduced page load time by 50%"
+//     //   ]
+//     // }
+//   ];
+
+//   const education = [
+//     {
+//       id: 1,
+//       degree: "Bachelor of Computer Application",
+//       institution: "Utkal University",
+//       period: "2023 - 2026",
+//       grade: "7.0 CGPA"
+//     },
+//     {
+//       id: 2,
+//       degree: "Intermediate (Science)",
+//       institution: "Charmpa College",
+//       period: "2021 - 2023",
+//       grade: "56%"
+//     }
+//   ];
+
+//   const certifications = [
+//     {
+//       id: 1,
+//       name: "Full Stack Web Development",
+//       issuer: "Coursera",
+//       date: "2023"
+//     },
+//     {
+//       id: 2,
+//       name: "React Developer",
+//       issuer: "Meta",
+//       date: "2023"
+//     },
+//     {
+//       id: 3,
+//       name: "Node.js Backend Development",
+//       issuer: "Udemy",
+//       date: "2022"
+//     }
 //   ];
 
 //   const handleNavClick = (href) => {
@@ -82,12 +147,23 @@
 //     e.target.reset();
 //   };
 
+//   const handleResumeDownload = () => {
+//     // Replace this with your actual resume file path
+//     const resumeUrl = 'https://nishikanta-resume-3-1.tiiny.site/'; // Make sure to add your resume in public folder
+//     const link = document.createElement('a');
+//     link.href = resumeUrl;
+//     link.download = 'Nishikanta_Jena_Resume.pdf';
+//     document.body.appendChild(link);
+//     link.click();
+//     document.body.removeChild(link);
+//   };
+
 //   return (
 //     <div className={`app ${darkMode ? 'dark' : 'light'}`}>
 //       {/* Navigation */}
 //       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
 //         <div className="nav-container">
-//           <div className="logo">_NK_</div>
+//           <div className="logo">Portfolio</div>
           
 //           {/* Desktop Menu */}
 //           <div className="nav-desktop">
@@ -187,10 +263,17 @@
 //               >
 //                 Contact Me
 //               </a>
+//               <button 
+//                 onClick={handleResumeDownload}
+//                 className="btn-secondary"
+//               >
+//                 <Download size={20} />
+//                 View Resume
+//               </button>
 //             </div>
 //             <div className="social-links">
 //               <a 
-//                 href="https://github.com/nishikanta" 
+//                 href="https://github.com/nishikanta-tech" 
 //                 target="_blank" 
 //                 rel="noopener noreferrer"
 //                 className="social-link"
@@ -219,7 +302,7 @@
 //           <div className="hero-image">
 //             <div className="avatar">
 //               <img 
-//                 src="https://i.pinimg.com/736x/ec/a1/56/eca15621f77387b8508670a90e30adb7.jpg"
+//                 src="https://i.pinimg.com/736x/29/40/3d/29403d457261a7f5d7a0c6f12b857189.jpg"
 //                 alt="Nishikanta Jena - Full Stack Developer" 
 //                 className="avatar-img"
 //                 loading="lazy"
@@ -315,6 +398,201 @@
 //         </div>
 //       </section>
 
+//       {/* Resume Section */}
+//       <section id="resume" className="section dark-section">
+//         <div className="resume-header">
+//           <h2 className="section-title">My Resume</h2>
+//           <button 
+//             className="btn-primary download-btn"
+//             onClick={handleResumeDownload}
+//           >
+//             <Download size={20} />
+//             Download Resume
+//           </button>
+//         </div>
+        
+//         <div className="resume-container">
+//           {/* Left Column */}
+//           <div className="resume-left">
+//             {/* Experience */}
+//             <div className="resume-section">
+//               <div className="section-header">
+//                 <Briefcase className="section-icon" size={28} />
+//                 <h3>Experience</h3>
+//               </div>
+//               <div className="timeline">
+//                 {experiences.map(exp => (
+//                   <div key={exp.id} className="timeline-item">
+//                     <div className="timeline-marker">
+//                       <div className="timeline-dot"></div>
+//                       <div className="timeline-line"></div>
+//                     </div>
+//                     <div className="timeline-content">
+//                       <h4>{exp.title}</h4>
+//                       <div className="timeline-meta">
+//                         <span className="company">{exp.company}</span>
+//                         <span className="period">{exp.period}</span>
+//                       </div>
+//                       <p className="timeline-description">{exp.description}</p>
+//                       <ul className="achievements-list">
+//                         {exp.achievements.map((achievement, idx) => (
+//                           <li key={idx} className="achievement-item">
+//                             <span className="achievement-dot"></span>
+//                             {achievement}
+//                           </li>
+//                         ))}
+//                       </ul>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* Education */}
+//             <div className="resume-section">
+//               <div className="section-header">
+//                 <FileText className="section-icon" size={28} />
+//                 <h3>Education</h3>
+//               </div>
+//               <div className="education-grid">
+//                 {education.map(edu => (
+//                   <div key={edu.id} className="education-card">
+//                     <div className="education-icon">
+//                       <FileText size={24} />
+//                     </div>
+//                     <div className="education-content">
+//                       <h4>{edu.degree}</h4>
+//                       <p className="institution">{edu.institution}</p>
+//                       <div className="education-meta">
+//                         <span className="period">
+//                           <Calendar size={16} />
+//                           {edu.period}
+//                         </span>
+//                         <span className="grade">
+//                           <Award size={16} />
+//                           {edu.grade}
+//                         </span>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Right Column */}
+//           <div className="resume-right">
+//             {/* Skills Summary */}
+//             <div className="resume-section">
+//               <div className="section-header">
+//                 <Code className="section-icon" size={28} />
+//                 <h3>Technical Skills</h3>
+//               </div>
+//               <div className="skills-summary">
+//                 <div className="skill-category">
+//                   <h4>Frontend</h4>
+//                   <div className="skill-tags">
+//                     {["React", "JavaScript", "HTML5", "CSS3", "Tailwind", "Bootstrap"].map(skill => (
+//                       <span key={skill} className="skill-tag advanced">{skill}</span>
+//                     ))}
+//                   </div>
+//                 </div>
+//                 <div className="skill-category">
+//                   <h4>Backend</h4>
+//                   <div className="skill-tags">
+//                     {["Node.js", "Express", "MongoDB", "REST APIs", "Firebase"].map(skill => (
+//                       <span key={skill} className="skill-tag intermediate">{skill}</span>
+//                     ))}
+//                   </div>
+//                 </div>
+//                 <div className="skill-category">
+//                   <h4>Tools</h4>
+//                   <div className="skill-tags">
+//                     {["Git", "VS Code", "Figma", "Postman", "Heroku"].map(skill => (
+//                       <span key={skill} className="skill-tag beginner">{skill}</span>
+//                     ))}
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Certifications */}
+//             <div className="resume-section">
+//               <div className="section-header">
+//                 <Award className="section-icon" size={28} />
+//                 <h3>Certifications</h3>
+//               </div>
+//               <div className="certifications-list">
+//                 {certifications.map(cert => (
+//                   <div key={cert.id} className="certification-card">
+//                     <div className="certification-icon">
+//                       <Award size={20} />
+//                     </div>
+//                     <div className="certification-content">
+//                       <h4>{cert.name}</h4>
+//                       <p className="certification-meta">
+//                         <span className="issuer">{cert.issuer}</span>
+//                         <span className="date">{cert.date}</span>
+//                       </p>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* Languages */}
+//             <div className="resume-section">
+//               <div className="section-header">
+//                 <FileText className="section-icon" size={28} />
+//                 <h3>Languages</h3>
+//               </div>
+//               <div className="languages-list">
+//                 {[
+//                   { language: "English", level: "Fluent", proficiency: 90 },
+//                   { language: "Hindi", level: "Intermediate", proficiency: 70 },
+//                   { language: "Odia", level: "Native", proficiency: 100 }
+//                 ].map((lang, idx) => (
+//                   <div key={idx} className="language-item">
+//                     <div className="language-info">
+//                       <span className="language-name">{lang.language}</span>
+//                       <span className="language-level">{lang.level}</span>
+//                     </div>
+//                     <div className="language-progress">
+//                       <div 
+//                         className="progress-bar"
+//                         style={{ width: `${lang.proficiency}%` }}
+//                       ></div>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Stats Section */}
+//         <div className="stats-section">
+//           <div className="stats-grid">
+//             <div className="stat-card">
+//               <div className="stat-number">2+</div>
+//               <div className="stat-label">Years Experience</div>
+//             </div>
+//             <div className="stat-card">
+//               <div className="stat-number">15+</div>
+//               <div className="stat-label">Projects Completed</div>
+//             </div>
+//             <div className="stat-card">
+//               <div className="stat-number">10+</div>
+//               <div className="stat-label">Happy Clients</div>
+//             </div>
+//             <div className="stat-card">
+//               <div className="stat-number">5+</div>
+//               <div className="stat-label">Certifications</div>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+
 //       {/* Contact Section */}
 //       <section id="contact" className="section dark-section">
 //         <h2 className="section-title">Get In Touch</h2>
@@ -391,13 +669,16 @@
 
 
 
+
+
+
+// App.jsx
 import { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Code, Database, Palette, Menu, X, Download, FileText, Briefcase, Award, Calendar } from 'lucide-react';
 import './App.css';
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
-    // Check user's preference or stored theme
     const savedTheme = localStorage.getItem('theme');
     return savedTheme === 'dark' || 
            (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -405,12 +686,17 @@ function App() {
   
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  
+  // Auto-typing effect state
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingIndex, setTypingIndex] = useState(0);
+  
+  const roles = ['MERN Stack Developer', 'React Specialist', 'Full Stack Engineer', 'UI/UX Enthusiast'];
 
   useEffect(() => {
-    // Save theme preference
     localStorage.setItem('theme', darkMode ? 'dark' : 'light');
     
-    // Handle scroll for navbar
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -418,6 +704,33 @@ function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [darkMode]);
+
+  // Auto-typing effect
+  useEffect(() => {
+    const currentRole = roles[typingIndex % roles.length];
+    
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing
+        if (displayText.length < currentRole.length) {
+          setDisplayText(currentRole.slice(0, displayText.length + 1));
+        } else {
+          // Pause then start deleting
+          setTimeout(() => setIsDeleting(true), 1500);
+        }
+      } else {
+        // Deleting
+        if (displayText.length > 0) {
+          setDisplayText(currentRole.slice(0, displayText.length - 1));
+        } else {
+          setIsDeleting(false);
+          setTypingIndex((prev) => prev + 1);
+        }
+      }
+    }, isDeleting ? 50 : 100);
+    
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, typingIndex, roles]);
 
   const projects = [
     {
@@ -472,18 +785,6 @@ function App() {
         "Reduced API response time by 30%"
       ]
     },
-    // {
-    //   id: 2,
-    //   title: "Frontend Developer",
-    //   company: "Digital Innovations",
-    //   period: "Jan 2022 - May 2023",
-    //   description: "Built user interfaces for various client projects using modern JavaScript frameworks.",
-    //   achievements: [
-    //     "Led a team of 3 developers",
-    //     "Improved user satisfaction by 25%",
-    //     "Reduced page load time by 50%"
-    //   ]
-    // }
   ];
 
   const education = [
@@ -534,14 +835,12 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
     alert('Thank you for your message! I will get back to you soon.');
     e.target.reset();
   };
 
   const handleResumeDownload = () => {
-    // Replace this with your actual resume file path
-    const resumeUrl = 'https://nishikanta-resume-3-1.tiiny.site/'; // Make sure to add your resume in public folder
+    const resumeUrl = 'https://nishikanta-resume-3-1.tiiny.site/';
     const link = document.createElement('a');
     link.href = resumeUrl;
     link.download = 'Nishikanta_Jena_Resume.pdf';
@@ -552,7 +851,7 @@ function App() {
 
   return (
     <div className={`app ${darkMode ? 'dark' : 'light'}`}>
-      {/* Navigation */}
+      {/* Modern Navigation */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <div className="logo">Portfolio</div>
@@ -600,7 +899,7 @@ function App() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay */}
         {menuOpen && (
           <div className="mobile-menu">
             {navItems.map(item => (
@@ -620,7 +919,7 @@ function App() {
         )}
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section with Auto-typing */}
       <section id="home" className="hero">
         <div className="hero-container">
           <div className="hero-content">
@@ -628,7 +927,8 @@ function App() {
               Hi, I'm <span className="highlight">Nishikanta</span>
             </h1>
             <h2 className="hero-subtitle">
-              MERN Stack Developer
+              {displayText}
+              <span className="typed-cursor">|</span>
             </h2>
             <p className="hero-description">
               I create beautiful, functional web applications with modern technologies. 
