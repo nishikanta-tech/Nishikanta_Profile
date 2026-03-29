@@ -18,7 +18,7 @@ function App() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingIndex, setTypingIndex] = useState(0);
   
-  const roles = ['MERN Stack Developer', 'React Specialist', 'Full Stack Engineer', 'UI/UX Enthusiast'];
+  const roles = ['MERN Stack Developer', 'React Devloperr', 'Full Stack Devloper', 'Nodejs Devloper'];
 
   useEffect(() => {
     localStorage.setItem('theme', darkMode ? 'dark' : 'light');
@@ -180,7 +180,7 @@ function App() {
       {/* Minimal Navbar - Only Menu Icon */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
-          <div className="logo">Portfolio</div>
+          <div className="logo">Nk</div>
           
           {/* Mobile Menu Button (visible on all screens) */}
           <div className="nav-mobile">
