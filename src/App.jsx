@@ -1,4 +1,4 @@
-// App.jsx - Complete file
+// App.jsx - Complete Redesigned File
 import { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Code, Database, Palette, Menu, X, Download, FileText, Briefcase, Award, Calendar } from 'lucide-react';
 import './App.css';
@@ -6,46 +6,45 @@ import './App.css';
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    return savedTheme === 'dark' || 
-           (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    return savedTheme === 'dark' ||
+      (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
   });
-  
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
-  // Auto-typing effect state
+
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingIndex, setTypingIndex] = useState(0);
-  
-  const roles = ['MERN Stack Developer', 'React Devloperr', 'Full Stack Devloper', 'Nodejs Devloper'];
+
+  const roles = ['MERN Stack Developer', 'React Developer', 'Full Stack Developer', 'Node.js Developer'];
 
   useEffect(() => {
     localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-    
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [darkMode]);
 
-  // Auto-typing effect
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
   useEffect(() => {
     const currentRole = roles[typingIndex % roles.length];
-    
     const timeout = setTimeout(() => {
       if (!isDeleting) {
-        // Typing
         if (displayText.length < currentRole.length) {
           setDisplayText(currentRole.slice(0, displayText.length + 1));
         } else {
-          // Pause then start deleting
           setTimeout(() => setIsDeleting(true), 1500);
         }
       } else {
-        // Deleting
         if (displayText.length > 0) {
           setDisplayText(currentRole.slice(0, displayText.length - 1));
         } else {
@@ -54,7 +53,6 @@ function App() {
         }
       }
     }, isDeleting ? 50 : 100);
-    
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, typingIndex, roles]);
 
@@ -103,7 +101,7 @@ function App() {
       id: 1,
       title: "Mern Stack Trainee",
       company: "Seere Private Limited",
-      period: "feb 2025 - Sep 2025",
+      period: "Feb 2025 - Sep 2025",
       description: "Developed and maintained web applications using React and Node.js.",
       achievements: [
         "Increased application performance by 40%",
@@ -131,32 +129,17 @@ function App() {
   ];
 
   const certifications = [
-    {
-      id: 1,
-      name: "Full Stack Web Development",
-      issuer: "Coursera",
-      date: "2023"
-    },
-    {
-      id: 2,
-      name: "React Developer",
-      issuer: "Meta",
-      date: "2023"
-    },
-    {
-      id: 3,
-      name: "Node.js Backend Development",
-      issuer: "Udemy",
-      date: "2022"
-    }
+    { id: 1, name: "Full Stack Web Development", issuer: "Coursera", date: "2023" },
+    { id: 2, name: "React Developer", issuer: "Meta", date: "2023" },
+    { id: 3, name: "Node.js Backend Development", issuer: "Udemy", date: "2022" }
   ];
 
   const handleNavClick = (href) => {
     setMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) element.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
   };
 
   const handleSubmit = (e) => {
@@ -166,63 +149,98 @@ function App() {
   };
 
   const handleResumeDownload = () => {
-    const resumeUrl = 'https://nishikanta-resume-3-1.tiiny.site/';
-    const link = document.createElement('a');
-    link.href = resumeUrl;
-    link.download = 'Nishikanta_Jena_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    window.open('https://nishikanta-resume-3-1.tiiny.site/', '_blank');
   };
 
   return (
     <div className={`app ${darkMode ? 'dark' : 'light'}`}>
-      {/* Minimal Navbar - Only Menu Icon */}
+
+      {/* ===== NAVBAR ===== */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
-          <div className="logo">Nk</div>
-          
-          {/* Mobile Menu Button (visible on all screens) */}
-          <div className="nav-mobile">
-            <button 
-              className="theme-btn"
-              onClick={() => setDarkMode(!darkMode)}
-              aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {darkMode ? 'Light' : 'Dark'}
-            </button>
-            <button 
-              className="menu-btn"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            >
-              {menuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
+          <div className="logo" onClick={() => handleNavClick('#home')}>Nk</div>
 
-        {/* Full Screen Mobile Menu Overlay */}
-        {menuOpen && (
-          <div className="mobile-menu">
-            {navItems.map((item, index) => (
-              <a 
-                key={item.name} 
+          {/* Desktop Links */}
+          <div className="nav-desktop">
+            {navItems.map(item => (
+              <a
+                key={item.name}
                 href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(item.href);
-                }}
-                className="mobile-nav-link"
-                style={{ animationDelay: `${index * 0.05}s` }}
+                onClick={(e) => { e.preventDefault(); handleNavClick(item.href); }}
+                className="nav-link"
               >
                 {item.name}
               </a>
             ))}
           </div>
-        )}
+
+          {/* Right Actions */}
+          <div className="nav-actions">
+            <button
+              className="theme-btn"
+              onClick={() => setDarkMode(!darkMode)}
+              aria-label="Toggle theme"
+            >
+              {darkMode ? '☀️' : '🌙'}
+            </button>
+            <button
+              className="menu-btn"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </div>
       </nav>
 
-      {/* Hero Section with Auto-typing */}
+      {/* ===== MOBILE MENU OVERLAY ===== */}
+      <div className={`mobile-overlay ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
+        <div className="mobile-menu-inner">
+          {/* Header */}
+          <div className="mobile-menu-header">
+            <span className="mobile-logo">Nk</span>
+            <button className="menu-close-btn" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+              <X size={20} />
+            </button>
+          </div>
+
+          {/* Nav Links */}
+          <nav className="mobile-nav-links">
+            {navItems.map((item, index) => (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={(e) => { e.preventDefault(); handleNavClick(item.href); }}
+                className={`mobile-nav-link ${menuOpen ? 'animate' : ''}`}
+                style={{ animationDelay: `${index * 0.07}s` }}
+              >
+                <span className="mobile-nav-number">0{index + 1}</span>
+                <span className="mobile-nav-name">{item.name}</span>
+                <span className="mobile-nav-arrow">→</span>
+              </a>
+            ))}
+          </nav>
+
+          {/* Footer */}
+          <div className="mobile-menu-footer">
+            <a href="https://github.com/nishikanta-tech" target="_blank" rel="noopener noreferrer" className="mobile-social" aria-label="GitHub">
+              <Github size={18} />
+            </a>
+            <a href="https://www.linkedin.com/in/nishikanta-jena-68a0052a3" target="_blank" rel="noopener noreferrer" className="mobile-social" aria-label="LinkedIn">
+              <Linkedin size={18} />
+            </a>
+            <a href="mailto:nishikanta394@gmail.com" className="mobile-social" aria-label="Email">
+              <Mail size={18} />
+            </a>
+            <button onClick={handleResumeDownload} className="mobile-resume-btn">
+              <Download size={16} /> Resume
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ===== HERO ===== */}
       <section id="home" className="hero">
         <div className="hero-container">
           <div className="hero-content">
@@ -234,71 +252,37 @@ function App() {
               <span className="typed-cursor">|</span>
             </h2>
             <p className="hero-description">
-              I create beautiful, functional web applications with modern technologies. 
+              I create beautiful, functional web applications with modern technologies.
               Passionate about clean code and user experience.
             </p>
             <div className="hero-buttons">
-              <a 
-                href="#projects"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick('#projects');
-                }}
-                className="btn-primary"
-              >
+              <a href="#projects" onClick={(e) => { e.preventDefault(); handleNavClick('#projects'); }} className="btn-primary">
                 View Projects
               </a>
-              <a 
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick('#contact');
-                }}
-                className="btn-secondary"
-              >
+              <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }} className="btn-secondary">
                 Contact Me
               </a>
-              <button 
-                onClick={handleResumeDownload}
-                className="btn-secondary"
-              >
-                <Download size={20} />
-                View Resume
+              <button onClick={handleResumeDownload} className="btn-secondary">
+                <Download size={18} /> View Resume
               </button>
             </div>
             <div className="social-links">
-              <a 
-                href="https://github.com/nishikanta-tech" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="social-link"
-                aria-label="GitHub"
-              >
-                <Github size={24} />
+              <a href="https://github.com/nishikanta-tech" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="GitHub">
+                <Github size={22} />
               </a>
-              <a 
-                href="https://www.linkedin.com/in/nishikanta-jena-68a0052a3?originalSubdomain=in"
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="social-link"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={24} />
+              <a href="https://www.linkedin.com/in/nishikanta-jena-68a0052a3" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
+                <Linkedin size={22} />
               </a>
-              <a 
-                href="mailto:nishikanta394@gmail.com"
-                className="social-link"
-                aria-label="Email"
-              >
-                <Mail size={24} />
+              <a href="mailto:nishikanta394@gmail.com" className="social-link" aria-label="Email">
+                <Mail size={22} />
               </a>
             </div>
           </div>
           <div className="hero-image">
             <div className="avatar">
-              <img 
+              <img
                 src="https://i.pinimg.com/736x/29/40/3d/29403d457261a7f5d7a0c6f12b857189.jpg"
-                alt="Nishikanta Jena - Full Stack Developer" 
+                alt="Nishikanta Jena - Full Stack Developer"
                 className="avatar-img"
                 loading="lazy"
               />
@@ -307,43 +291,29 @@ function App() {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* ===== ABOUT ===== */}
       <section id="about" className="section">
         <h2 className="section-title">About Me</h2>
         <div className="services">
           <div className="service-card">
-            <div className="service-icon">
-              <Code size={32} />
-            </div>
+            <div className="service-icon"><Code size={32} /></div>
             <h3 className="service-title">Frontend Development</h3>
-            <p className="service-description">
-              Creating responsive, accessible user interfaces with React and modern CSS.
-            </p>
+            <p className="service-description">Creating responsive, accessible user interfaces with React and modern CSS.</p>
           </div>
-          
           <div className="service-card">
-            <div className="service-icon">
-              <Database size={32} />
-            </div>
+            <div className="service-icon"><Database size={32} /></div>
             <h3 className="service-title">Backend Development</h3>
-            <p className="service-description">
-              Building robust APIs and server-side logic with Node.js and databases.
-            </p>
+            <p className="service-description">Building robust APIs and server-side logic with Node.js and databases.</p>
           </div>
-          
           <div className="service-card">
-            <div className="service-icon">
-              <Palette size={32} />
-            </div>
+            <div className="service-icon"><Palette size={32} /></div>
             <h3 className="service-title">UI/UX Design</h3>
-            <p className="service-description">
-              Designing intuitive user experiences and beautiful interfaces.
-            </p>
+            <p className="service-description">Designing intuitive user experiences and beautiful interfaces.</p>
           </div>
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* ===== PROJECTS ===== */}
       <section id="projects" className="section dark-section">
         <h2 className="section-title">My Projects</h2>
         <div className="projects-grid">
@@ -358,21 +328,11 @@ function App() {
                   ))}
                 </div>
                 <div className="project-links">
-                  <a 
-                    href={project.liveLink} 
-                    className="project-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink size={18} /> Live Demo
+                  <a href={project.liveLink} className="project-link" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink size={16} /> Live Demo
                   </a>
-                  <a 
-                    href={project.githubLink} 
-                    className="project-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github size={18} /> View Code
+                  <a href={project.githubLink} className="project-link" target="_blank" rel="noopener noreferrer">
+                    <Github size={16} /> View Code
                   </a>
                 </div>
               </div>
@@ -381,38 +341,30 @@ function App() {
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* ===== SKILLS ===== */}
       <section id="skills" className="section">
         <h2 className="section-title">Skills</h2>
         <div className="skills-container">
           {skills.map(skill => (
-            <div key={skill} className="skill-item">
-              {skill}
-            </div>
+            <div key={skill} className="skill-item">{skill}</div>
           ))}
         </div>
       </section>
 
-      {/* Resume Section */}
+      {/* ===== RESUME ===== */}
       <section id="resume" className="section dark-section">
         <div className="resume-header">
           <h2 className="section-title">My Resume</h2>
-          <button 
-            className="btn-primary download-btn"
-            onClick={handleResumeDownload}
-          >
-            <Download size={20} />
-            Download Resume
+          <button className="btn-primary download-btn" onClick={handleResumeDownload}>
+            <Download size={18} /> Download Resume
           </button>
         </div>
-        
+
         <div className="resume-container">
-          {/* Left Column */}
           <div className="resume-left">
-            {/* Experience */}
             <div className="resume-section">
               <div className="section-header">
-                <Briefcase className="section-icon" size={28} />
+                <Briefcase className="section-icon" size={24} />
                 <h3>Experience</h3>
               </div>
               <div className="timeline">
@@ -443,30 +395,21 @@ function App() {
               </div>
             </div>
 
-            {/* Education */}
             <div className="resume-section">
               <div className="section-header">
-                <FileText className="section-icon" size={28} />
+                <FileText className="section-icon" size={24} />
                 <h3>Education</h3>
               </div>
               <div className="education-grid">
                 {education.map(edu => (
                   <div key={edu.id} className="education-card">
-                    <div className="education-icon">
-                      <FileText size={24} />
-                    </div>
+                    <div className="education-icon"><FileText size={22} /></div>
                     <div className="education-content">
                       <h4>{edu.degree}</h4>
                       <p className="institution">{edu.institution}</p>
                       <div className="education-meta">
-                        <span className="period">
-                          <Calendar size={16} />
-                          {edu.period}
-                        </span>
-                        <span className="grade">
-                          <Award size={16} />
-                          {edu.grade}
-                        </span>
+                        <span className="period"><Calendar size={14} /> {edu.period}</span>
+                        <span className="grade"><Award size={14} /> {edu.grade}</span>
                       </div>
                     </div>
                   </div>
@@ -475,12 +418,10 @@ function App() {
             </div>
           </div>
 
-          {/* Right Column */}
           <div className="resume-right">
-            {/* Skills Summary */}
             <div className="resume-section">
               <div className="section-header">
-                <Code className="section-icon" size={28} />
+                <Code className="section-icon" size={24} />
                 <h3>Technical Skills</h3>
               </div>
               <div className="skills-summary">
@@ -511,18 +452,15 @@ function App() {
               </div>
             </div>
 
-            {/* Certifications */}
             <div className="resume-section">
               <div className="section-header">
-                <Award className="section-icon" size={28} />
+                <Award className="section-icon" size={24} />
                 <h3>Certifications</h3>
               </div>
               <div className="certifications-list">
                 {certifications.map(cert => (
                   <div key={cert.id} className="certification-card">
-                    <div className="certification-icon">
-                      <Award size={20} />
-                    </div>
+                    <div className="certification-icon"><Award size={18} /></div>
                     <div className="certification-content">
                       <h4>{cert.name}</h4>
                       <p className="certification-meta">
@@ -535,10 +473,9 @@ function App() {
               </div>
             </div>
 
-            {/* Languages */}
             <div className="resume-section">
               <div className="section-header">
-                <FileText className="section-icon" size={28} />
+                <FileText className="section-icon" size={24} />
                 <h3>Languages</h3>
               </div>
               <div className="languages-list">
@@ -553,10 +490,7 @@ function App() {
                       <span className="language-level">{lang.level}</span>
                     </div>
                     <div className="language-progress">
-                      <div 
-                        className="progress-bar"
-                        style={{ width: `${lang.proficiency}%` }}
-                      ></div>
+                      <div className="progress-bar" style={{ width: `${lang.proficiency}%` }}></div>
                     </div>
                   </div>
                 ))}
@@ -565,7 +499,6 @@ function App() {
           </div>
         </div>
 
-        {/* Stats Section */}
         <div className="stats-section">
           <div className="stats-grid">
             <div className="stat-card">
@@ -588,8 +521,8 @@ function App() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="section dark-section">
+      {/* ===== CONTACT ===== */}
+      <section id="contact" className="section">
         <h2 className="section-title">Get In Touch</h2>
         <div className="contact-container">
           <div className="contact-info">
@@ -615,41 +548,26 @@ function App() {
               </div>
             </div>
           </div>
-          
+
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input 
-                type="text" 
-                id="name" 
-                placeholder="Your name" 
-                required 
-              />
+              <input type="text" id="name" placeholder="Your name" required />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                placeholder="Your email" 
-                required 
-              />
+              <input type="email" id="email" placeholder="Your email" required />
             </div>
             <div className="form-group">
               <label htmlFor="message">Message</label>
-              <textarea 
-                id="message" 
-                rows="4" 
-                placeholder="Your message"
-                required
-              ></textarea>
+              <textarea id="message" rows="4" placeholder="Your message" required></textarea>
             </div>
             <button type="submit" className="btn-primary">Send Message</button>
           </form>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ===== FOOTER ===== */}
       <footer className="footer">
         <p>© {new Date().getFullYear()} Nishikanta. All rights reserved.</p>
         <p className="footer-sub">Built with React & Vite</p>
